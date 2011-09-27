@@ -1,0 +1,489 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title></title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <!-- CSS: implied media=all -->
+  <!-- CSS concatenated and minified via ant build script-->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- end CSS-->
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="js/libs/modernizr-2.0.6.min.js"></script>
+</head>
+
+<body onmousedown="return false;">
+
+  <div id="container">
+    <header>
+
+    </header>
+    <div id="main" role="main">
+	
+		<div id="canvas_container">
+			<canvas id="mycanvas" width="600" height="600">        </canvas>
+		</div>
+		<article>
+			Messing around with Canvas capabilities and the kinetic2d library.<br/>
+			Click and drag items to move items around.<br/>
+			Click and drag corners to resize.<br/>
+			Click on pink button to toggle corners<br/>
+		</article>
+		
+    </div>
+    <footer>
+		<div class="links">
+			<a href="silly.html">Canvas Picture Experiment</a> |
+			<a href="index.html">CSS3 Transition Experiment
+		</div>
+    </footer>
+  </div> <!--! end of #container -->
+
+
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+
+
+  <!-- scripts concatenated and minified via ant build script-->
+  <script defer src="js/plugins.js"></script>
+  <script src="http://www.html5canvastutorials.com/libraries/kinetic2d-v1.0.2.js">
+  <script defer src="js/script.js"></script>
+   <script>
+    var images = {};
+    var kin;
+ 
+    // drag and drop globals
+    var offsetX = 0;
+    var offsetY = 0;
+ 
+    // reszize globals
+    var resizeStartX = 0;
+    var resizeStartY = 0;
+    var resizeStartScaleX = 0;
+    var resizeStartScaleY = 0;
+    var resizeOffsetX = 0;
+    var resizeOffsetY = 0;
+ 
+    // resize corner constants
+    var TOP_LEFT = "TOP_LEFT";
+    var TOP_RIGHT = "TOP_RIGHT";
+    var BOTTOM_RIGHT = "BOTTOM_RIGHT";
+    var BOTTOM_LEFT = "BOTTOM_LEFT";
+    var NONE = "NONE";
+	var gmessage = "ha ha ha";
+	var rolledover = "true";
+	var toggleCorners = "Hide Corners";
+ 
+    // initialize an array of rectangles that provide
+    // rectangular paths and properties for the images
+    var rectangles = [{
+        name: "border1",
+        image: null,
+        x: 475,
+        y: 400,
+        width: 100,
+        height: 100,
+        dragging: false,
+        resizeCorner: NONE,
+        scaleX: 1,
+        scaleY: 1
+    }, {
+        name: "element1",
+        image: null,
+        x: 500,
+        y: 70,
+        width: 50,
+        height: 25,
+        dragging: false,
+        resizeCorner: NONE,
+        scaleX: 1,
+        scaleY: 1
+    }, {
+        name: "element2",
+        image: null,
+        x: 500,
+        y: 100,
+        width: 50,
+        height: 50,
+        dragging: false,
+        resizeCorner: NONE,
+        scaleX: 1,
+        scaleY: 1
+    },{
+        name: "element3",
+        image: null,
+        x: 500,
+        y: 155,
+        width: 50,
+        height: 50,
+        dragging: false,
+        resizeCorner: NONE,
+        scaleX: 1,
+        scaleY: 1
+    },{
+        name: "element4",
+        image: null,
+        x: 500,
+        y: 210,
+        width: 50,
+        height: 50,
+        dragging: false,
+        resizeCorner: NONE,
+        scaleX: 1,
+        scaleY: 1
+    },{
+        name: "element5",
+        image: null,
+        x: 500,
+        y: 275,
+        width: 50,
+        height: 50,
+        dragging: false,
+        resizeCorner: NONE,
+        scaleX: 1,
+        scaleY: 1
+    },{
+        name: "element6",
+        image: null,
+        x: 500,
+        y: 335,
+        width: 50,
+        height: 50,
+        dragging: false,
+        resizeCorner: NONE,
+        scaleX: 1,
+        scaleY: 1
+    },{
+        name: "mainphoto",
+        image: null,
+        x: 100,
+        y: 70,
+        width: 338,
+        height: 450,
+        dragging: false,
+        resizeCorner: NONE,
+        scaleX: 1,
+        scaleY: 1
+    }];
+	
+    function writeMessage(kin, message){
+        var context = kin.getContext();
+        context.font = "18pt Georgia";
+        context.fillStyle = "#9eda1e";
+        context.fillText(message, 20, 35);
+    }	
+	
+	function roundRect(context, x, y, width, height, radius, fill, stroke) {
+	  if (typeof stroke == "undefined" ) {
+		stroke = true;
+	  }
+	  if (typeof radius === "undefined") {
+		radius = 5;
+	  }
+	  context.beginPath();
+	  context.moveTo(x + radius, y);
+	  context.lineTo(x + width - radius, y);
+	  context.quadraticCurveTo(x + width, y, x + width, y + radius);
+	  context.lineTo(x + width, y + height - radius);
+	  context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+	  context.lineTo(x + radius, y + height);
+	  context.quadraticCurveTo(x, y + height, x, y + height - radius);
+	  context.lineTo(x, y + radius);
+	  context.quadraticCurveTo(x, y, x + radius, y);
+	  context.closePath();
+	  if (stroke) {
+		context.stroke();
+	  }
+	  if (fill) {
+		context.fill();
+	  }        
+	}	
+	
+    function loadImages(sources, callback){
+        var loadedImages = 0;
+        var numImages = 0;
+        for (var src in sources) {
+            numImages++;
+        }
+        for (var src in sources) {
+            images[src] = new Image();
+            images[src].onload = function(){
+                if (++loadedImages >= numImages) {
+                    callback();
+                }
+            };
+            images[src].src = sources[src];
+        }
+    }
+ 
+	function drawResizeBoxNF(x, y, rect, resizeCorner){
+	
+        var context = kin.getContext();
+        kin.beginRegion();
+        context.beginPath();
+        context.fillStyle = "rgba(218,145,145, 0.5)";
+        context.rect(x, y, 10, 10);
+        context.fill();
+        context.closePath();
+		
+		
+	}
+ 
+    function drawResizeBox(x, y, rect, resizeCorner){
+ 
+        var context = kin.getContext();
+        kin.beginRegion();
+        context.beginPath();
+        context.fillStyle = "rgba(255, 255, 000, 0.0)";
+        context.rect(x, y, 10, 10);
+        context.fill();
+        context.closePath();
+		
+		
+		
+		kin.addRegionEventListener("mouseover", function(){
+		});
+		
+		kin.addRegionEventListener("mouseout", function(){
+		});
+		kin.addRegionEventListener("mousedown", function(){
+            var mousePos = kin.getMousePos();
+            rect.resizeCorner = resizeCorner;
+            resizeStartX = mousePos.x;
+            resizeStartY = mousePos.y;
+            resizeOffsetX = rect.x - mousePos.x;
+            resizeOffsetY = rect.y - mousePos.y;
+            resizeStartScaleX = rect.scaleX;
+            resizeStartScaleY = rect.scaleY;
+			context.fill();
+        });
+ 
+ 
+        kin.addRegionEventListener("mouseup", function(){
+            rect.resizeCorner = NONE;
+			context.fill();
+        });
+ 
+        kin.closeRegion();
+    }
+ 
+    function resizeRect(thisRect){
+        var mousePos = kin.getMousePos();
+ 
+        var xDiff = resizeStartX - mousePos.x;
+        var yDiff = resizeStartY - mousePos.y;
+ 
+        var scaleOffsetX = thisRect.width * (1 - resizeStartScaleX);
+        var scaleOffsetY = thisRect.height * (1 - resizeStartScaleY);
+ 
+        switch (thisRect.resizeCorner) {
+            case TOP_LEFT:
+                thisRect.scaleX = (thisRect.width + xDiff - scaleOffsetX) / thisRect.width;
+                thisRect.scaleY = (thisRect.height + yDiff - scaleOffsetY) / thisRect.height;
+ 
+                thisRect.x = resizeStartX + resizeOffsetX - xDiff;
+                thisRect.y = resizeStartY + resizeOffsetY - yDiff;
+                break;
+            case TOP_RIGHT:
+                thisRect.scaleX = (thisRect.width - xDiff - scaleOffsetX) / thisRect.width;
+                thisRect.scaleY = (thisRect.height + yDiff - scaleOffsetY) / thisRect.height;
+ 
+                thisRect.y = resizeStartY + resizeOffsetY - yDiff;
+                break;
+            case BOTTOM_RIGHT:
+                thisRect.scaleX = (thisRect.width - xDiff - scaleOffsetX) / thisRect.width;
+                thisRect.scaleY = (thisRect.height - yDiff - scaleOffsetY) / thisRect.height;
+                break;
+ 
+            case BOTTOM_LEFT:
+                thisRect.scaleX = (thisRect.width + xDiff - scaleOffsetX) / thisRect.width;
+                thisRect.scaleY = (thisRect.height - yDiff - scaleOffsetY) / thisRect.height;
+ 
+                thisRect.x = resizeStartX + resizeOffsetX - xDiff;
+                break;
+        }
+    }
+ 
+    function initStage(){
+        // map images to rectangles array
+        counter = 0;
+        for (var img in images) {
+            rectangles[counter++].image = images[img];
+        }
+ 
+        kin = new Kinetic_2d("mycanvas");
+        var context = kin.getContext();
+		
+ 
+        // when using KineticJS, we need to draw the shapes with the highest z-index
+        // first and the shapes with the lowest z-index last in order to 
+        // correctly handle shape layering
+        context.globalCompositeOperation = "destination-over";
+ 
+        kin.setDrawStage(function(){
+            kin.clear();
+			
+			
+            var mousePos = kin.getMousePos();
+ 
+            for (var n = 0; n < rectangles.length; n++) {
+                var thisRect = rectangles[n];
+                if (thisRect.dragging) {
+                    thisRect.x = mousePos.x - offsetX;
+                    thisRect.y = mousePos.y - offsetY;
+                }
+ 
+                // handle resizing
+                if (thisRect.resizeCorner != "NONE") {
+                    resizeRect(thisRect);
+                }
+ 
+  
+                // draw resize boxes
+                drawResizeBox(thisRect.x, thisRect.y, thisRect, TOP_LEFT);				
+                drawResizeBox(thisRect.x + (thisRect.width * thisRect.scaleX) - 10, thisRect.y, thisRect, TOP_RIGHT);
+                drawResizeBox(thisRect.x + (thisRect.width * thisRect.scaleX) - 10, thisRect.y + (thisRect.height * thisRect.scaleY) - 10, thisRect, BOTTOM_RIGHT);
+                drawResizeBox(thisRect.x, thisRect.y + (thisRect.height * thisRect.scaleY) - 10, thisRect, BOTTOM_LEFT);
+ 
+				if(rolledover == "true"){
+                drawResizeBoxNF(thisRect.x, thisRect.y, thisRect, TOP_LEFT);
+                drawResizeBoxNF(thisRect.x + (thisRect.width * thisRect.scaleX) - 10, thisRect.y, thisRect, TOP_RIGHT);
+                drawResizeBoxNF(thisRect.x + (thisRect.width * thisRect.scaleX) - 10, thisRect.y + (thisRect.height * thisRect.scaleY) - 10, thisRect, BOTTOM_RIGHT);
+                drawResizeBoxNF(thisRect.x, thisRect.y + (thisRect.height * thisRect.scaleY) - 10, thisRect, BOTTOM_LEFT);
+					}
+                // draw image
+                if (thisRect.scaleX != 0 && thisRect.scaleY != 0) {
+                    kin.beginRegion();
+                    context.save();
+                    context.translate(thisRect.x, thisRect.y);
+                    context.scale(thisRect.scaleX, thisRect.scaleY);
+ 
+                    context.drawImage(thisRect.image, 0, 0, thisRect.width, thisRect.height);
+ 
+                    context.beginPath();
+                    context.rect(0, 0, thisRect.width, thisRect.height);
+                    context.closePath();
+ 
+                    kin.addRegionEventListener("mousedown", function(){
+                        thisRect.dragging = true;
+                        var mousePos = kin.getMousePos();
+ 
+                        offsetX = mousePos.x - thisRect.x;
+                        offsetY = mousePos.y - thisRect.y;
+ 
+                        // place this rect at the beginning of the rectangles
+                        // array so that is is rendered on top
+                        rectangles.splice(n, 1);
+                        rectangles.splice(0, 0, thisRect);
+                    });
+                    kin.addRegionEventListener("mouseup", function(){
+                        thisRect.dragging = false;
+                    });
+                    kin.addRegionEventListener("mouseover", function(){
+                        document.body.style.cursor = "pointer";
+						//rolledover = "true";	
+                    });
+                    kin.addRegionEventListener("mouseout", function(){
+                        document.body.style.cursor = "default";
+						//rolledover = "false";	
+                    });
+                    context.restore();
+                    kin.closeRegion();
+                }
+				
+				
+
+				
+            }
+			
+				//make button that toggles the corner boxes 
+                    kin.beginRegion(); 
+					 context.beginPath();
+					 
+					context.font = "bold 12px century gothic";
+					context.fillStyle = "rgba(225,225,225,1)";  
+					context.fillText(toggleCorners, 480, 30);	
+					context.strokeStyle = "black";
+					context.fillStyle = "rgba(218,145,145,1)";  
+					context.stroke();    
+					roundRect(context, 470, 10, 100, 30, 5, true, false);
+
+						kin.addRegionEventListener("mousedown", function(){
+							if(rolledover != "true"){ 
+								toggleCorners = "Hide Corners";
+								rolledover = "true";}
+							else{ 
+								toggleCorners = "Show Corners";
+								rolledover = "false";}
+						});
+									
+					
+                    kin.closeRegion();	
+					
+				
+            writeMessage(kin, "Being silly with canvas");
+        });
+    }
+ 
+    window.onload = function(){
+        var sources = {
+            border1: "http://madpimp.com/wp-content/uploads/2011/09/curly-template-300x300.png",
+            element1: "img/mustache.png",
+            element2: "img/hard_hat.png",
+            element3: "img/borsalino.png",
+            element4: "img/applications_engineering.png",
+            element5: "img/henrys_hat.png",
+            element6: "img/borsalino.png",
+            mainphoto: "http://madpimp.com/test/pics/1.jpg"
+        };
+ 
+        loadImages(sources, function(){
+            initStage();
+        });
+    };
+    </script>
+  <!-- end scripts-->
+
+	
+  <!-- Change UA-XXXXX-X to be your site's ID -->
+  <script>
+    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    Modernizr.load({
+      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+    });
+  </script>
+
+
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+</body>
+</html>
