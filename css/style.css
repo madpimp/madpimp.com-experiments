@@ -217,6 +217,11 @@ body{
  header{
 	background: #ffffff url("http://madpimp.com/wp-content/themes/premiumpixels/images/line2.png") repeat-x;
 	height: 150px;
+	text-align: center;
+ }
+ 
+ header .links{
+	padding-top: 8px;
  }
   
 article{
@@ -287,11 +292,11 @@ footer{
 
 }
 
-footer a, footer a:visited{
+footer a, footer a:visited, header a, header a:visited{
 	color: #fff;
 }
 
-footer a:hover{
+footer a:hover, header a:hover{
 	color: #ddd;
 }
 
