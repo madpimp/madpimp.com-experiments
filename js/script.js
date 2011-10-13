@@ -21,7 +21,7 @@ function css3Slider(slideName, newSlideContainerWidth, currentSlideLocation){
 		var currentSlideIndex = $(this).index();
 		if(currentSlideIndex != 0){
 			while(currentSlideIndex > 0){
-				currentSlideLocation-=$(slideName + "_images img:nth-child("+currentSlideIndex+")").width();
+				currentSlideLocation-=$(slideName + "_images .slide_image_container:nth-child("+currentSlideIndex+") img").width();
 				currentSlideIndex--;
 			}
 	}
@@ -54,6 +54,12 @@ $(document).ready(function() {
 	var currentSlideLocation = 0;
 	css3Slider(slideName, newSlideContainerWidth, currentSlideLocation);
 	$("#slide1_controls span").show();
+	});
+	
+	$(".slide_image_container").hover(function(){
+		$(this).children(".slide_image_description").css({"bottom" : 0, "opacity" : 1});
+	},function(){
+		$(this).children(".slide_image_description").css({"bottom" : -100, "opacity" : 0});
 	});
 	
 });

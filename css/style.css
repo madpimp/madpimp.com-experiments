@@ -265,12 +265,30 @@ article{
 	-ms-transition:all 1.0s ease-in-out;	
 	transition:all 1.0s ease-in-out;
 }
-#slide1_images img {
+.slide_image_container {
 	padding:0;
 	margin:0;
 	float:left;
+	position: relative;
 }
 
+.slide_image_description{
+	width: 100%;
+	height: 100px;
+	background: rgba(0,0,0,0.5); 
+	position: absolute;
+	z-index: 5000;
+	bottom: -100px;
+	left: 0;
+	-webkit-transition:all 0.5s ease-in-out;
+	-moz-transition:all 0.5s ease-in-out;
+	-o-transition:all 0.5s ease-in-out;
+	-ms-transition:all 0.5s ease-in-out;	
+	transition:all 0.5s ease-in-out;
+	opacity: 0;
+	color: #fff;
+	
+}
 
 #canvas_container{
 	width: 600px;
@@ -281,6 +299,7 @@ article{
 
 #mycanvas{
 	border:5px dashed #f8f8f8; 
+	background: transparent url("http://madpimp.com/test/pics/1.jpg") 80px 60px no-repeat;
 }	
 
 footer{
