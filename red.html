@@ -1,0 +1,450 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Super simple widget code</title>
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+  <link rel="stylesheet" href="css/style.css">
+	<style><!--
+	body{
+		background: #fff;
+	}
+	.contacts{
+		background: #000;
+		width: 280px;
+		color: #fff;
+		-moz-border-radius: 12px;
+		-webkit-border-radius: 12px;
+		border-radius: 12px;
+		-moz-box-shadow: 1px 1px 10px #888;
+		-mwebkit-box-shadow: 1px 1px 10px #888;
+		box-shadow: 1px 1px 10px #888;
+		border: 3px solid #262626;
+
+	}
+	
+	.contacts a{
+		color: #00ffff;
+	}
+	
+	.contacts h2{
+		margin: 0;
+		padding: 15px 10px;
+		font-size: 14px;
+		background: url('img/contacts-h2-bg.png');
+
+	}
+	
+	.contacts .avatar{
+		border: 3px solid #444444;
+		margin-top: 7px;
+	}
+	
+	.contacts table{
+		font-size: 12px;
+		width: 100%;
+	}
+	
+	.contacts .table-container{
+		position: relative;
+	}
+	
+	.contacts .active .identification{
+		background: url('img/onlinestate-active.png') 10px 10px no-repeat;
+	}
+	.contacts .idle .identification{
+		background: url('img/onlinestate-idle.png') 10px 10px no-repeat;
+	}
+	.contacts .off .identification{
+		background: url('img/onlinestate-off.png') 10px 10px no-repeat;
+	}
+	
+	.contacts td{
+		padding: 10px;
+		padding-left: 10px;
+		border-bottom: 3px solid #000;
+	}
+	
+	.contacts td.identification{
+		width: 70px;
+		padding-left: 30px;
+		border-right: 1px solid #000;
+	}
+	
+	.contacts td.information .email, .contacts td.information .phone{
+		color: #4e4e4e;
+	}
+	
+	.contacts .description{
+		width: 100%;
+		background: rgba(0,0,0,0.5); 
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		overflow: hidden;
+	}
+	
+	.contacts .description .ident, .contacts .description .info{
+		background: #000 url('img/contacts-description-bg.png');
+		float: left;
+	}
+	
+	.contacts .description .ident{
+		width: 70px;
+		padding: 10px 10px 10px 30px;
+	}
+	.contacts .description .info{
+		padding: 10px 15px 15px 15px;
+		width: 140px;
+		}
+	.contacts .info-content{
+		margin-bottom: 10px;
+	}
+	
+	.contacts .description .info .links a{
+		margin-right: 15px;
+	}
+	
+	.contacts .show-content{
+		text-align: center;
+		padding: 10px;
+		color: #000;
+		background-image: -ms-linear-gradient(top, #898989 0%, #6F6F6F 100%);
+		background-image: -moz-linear-gradient(top, #898989 0%, #6F6F6F 100%);
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #898989), color-stop(1, #6F6F6F));
+		background-image: -webkit-linear-gradient(top, #898989 0%, #6F6F6F 100%);
+		background-image: linear-gradient(top, #898989 0%, #6F6F6F 100%);
+	}	
+	
+	.contacts select{
+		border: 3px solid #363636;
+		background: #474747;
+		color: #fff;
+		height: 30px;
+		width: 150px;
+		margin-left: 15px;
+	}
+	.odd{
+		background: #222222;
+	}
+	.even{
+		background: #1a1a1a;
+	}
+	
+	.half-opacity{		
+		opacity: 0.5;
+	}
+	--></style>
+  <!-- end CSS-->
+
+
+
+  <script src="js/libs/modernizr-2.0.6.min.js"></script>
+
+
+
+</head>
+<body>
+	<div class="contacts">
+		<h2>Contacts</h2>
+		<div class="table-container">
+			<table>
+				<tr class="active odd">
+					<td class="identification">					
+							<div class="name">Christian</div>
+					</td>
+					<td class="information">
+							<div class="email">christian@yahoo.com</div>
+							<div class="phone hidden">555.555.5555</div>
+							<div class="description toggle hidden">
+								<div class="ident">
+									Christian
+									<br/>
+									<img class="avatar" src="img/christian-avatar.png"/>
+								</div>
+								<div class="info">
+									<div class="info-content"><a href="">christian@yahoo.com</a></div>
+									<div class="info-content">555.555.5555</div>
+									<div class="info-content">
+										8539 Wilton Ave.
+										<br/>
+										Culver City, CA 90234
+									</div>
+									<div class="links">
+										<a href="#chats">Chats</a>
+										<a href="#emails">Emails</a>
+									</div>
+								</div>
+							</div>
+					</td>
+				</tr>
+				<tr  class="active even">
+					<td class="identification">
+						
+							<div class="name">Rich</div>
+					</td>
+					<td class="information">
+							<div class="email">rich@yahoo.com</div>
+							<div class="phone hidden">555.555.5555</div>
+							<div class="description toggle hidden">
+								<div class="ident">
+									Rich
+									<br/>
+									<img class="avatar" src="img/rich-avatar.png"/>
+								</div>
+								<div class="info">
+									<div class="info-content"><a href="">rich@yahoo.com</a></div>
+									<div class="info-content">555.555.5555</div>
+									<div class="info-content">
+										8539 Wilton Ave.
+										<br/>
+										Culver City, CA 90234
+									</div>
+									<div class="links">
+										<a href="#chats">Chats</a>
+										<a href="#emails">Emails</a>
+									</div>
+								</div>
+							</div>
+					</td>
+				</tr>
+				<tr  class="idle odd">
+					<td class="identification">
+						
+							<div class="name">Scott</div>
+					</td>
+					<td class="information">
+							<div class="email">scott@yahoo.com</div>
+							<div class="phone hidden">555.555.5555</div>
+							<div class="description toggle hidden">
+								<div class="ident">
+									Scott
+									<br/>
+									<img class="avatar" src="img/scott-avatar.png"/>
+								</div>
+								<div class="info">
+									<div class="info-content"><a href="">scott@yahoo.com</a></div>
+									<div class="info-content">555.555.5555</div>
+									<div class="info-content">
+										8539 Wilton Ave.
+										<br/>
+										Culver City, CA 90234
+									</div>
+									<div class="links">
+										<a href="#chats">Chats</a>
+										<a href="#emails">Emails</a>
+									</div>
+								</div>
+							</div>
+					</td>
+				</tr>
+				<tr  class="off even">
+					<td class="identification">
+						
+							<div class="name">Christine</div>
+					</td>
+					<td class="information">
+							<div class="email">christine@yahoo.com</div>
+							<div class="phone hidden">555.555.5555</div>
+							<div class="description toggle hidden">
+								<div class="ident">
+									Christine
+									<br/>
+									<img class="avatar" src="img/christine-avatar.png"/>
+								</div>
+								<div class="info">
+									<div class="info-content"><a href="">christine@yahoo.com</a></div>
+									<div class="info-content">555.555.5555</div>
+									<div class="info-content">
+										8539 Wilton Ave.
+										<br/>
+										Culver City, CA 90234
+									</div>
+									<div class="links">
+										<a href="#chats">Chats</a>
+										<a href="#emails">Emails</a>
+									</div>
+								</div>
+							</div>
+					</td>
+				</tr>
+				<tr class="active odd">
+					<td class="identification">					
+							<div class="name">Christian</div>
+					</td>
+					<td class="information">
+							<div class="email">christian@yahoo.com</div>
+							<div class="phone hidden">555.555.5555</div>
+							<div class="description toggle hidden">
+								<div class="ident">
+									Christian
+									<br/>
+									<img class="avatar" src="img/christian-avatar.png"/>
+								</div>
+								<div class="info">
+									<div class="info-content"><a href="">christian@yahoo.com</a></div>
+									<div class="info-content">555.555.5555</div>
+									<div class="info-content">
+										8539 Wilton Ave.
+										<br/>
+										Culver City, CA 90234
+									</div>
+									<div class="links">
+										<a href="#chats">Chats</a>
+										<a href="#emails">Emails</a>
+									</div>
+								</div>
+							</div>
+					</td>
+				</tr>
+				<tr  class="active even">
+					<td class="identification">
+						
+							<div class="name">Rich</div>
+					</td>
+					<td class="information">
+							<div class="email">rich@yahoo.com</div>
+							<div class="phone hidden">555.555.5555</div>
+							<div class="description toggle hidden">
+								<div class="ident">
+									Rich
+									<br/>
+									<img class="avatar" src="img/rich-avatar.png"/>
+								</div>
+								<div class="info">
+									<div class="info-content"><a href="">rich@yahoo.com</a></div>
+									<div class="info-content">555.555.5555</div>
+									<div class="info-content">
+										8539 Wilton Ave.
+										<br/>
+										Culver City, CA 90234
+									</div>
+									<div class="links">
+										<a href="#chats">Chats</a>
+										<a href="#emails">Emails</a>
+									</div>
+								</div>
+							</div>
+					</td>
+				</tr>
+				<tr  class="idle odd">
+					<td class="identification">
+						
+							<div class="name">Scott</div>
+					</td>
+					<td class="information">
+							<div class="email">scott@yahoo.com</div>
+							<div class="phone hidden">555.555.5555</div>
+							<div class="description toggle hidden">
+								<div class="ident">
+									Scott
+									<br/>
+									<img class="avatar" src="img/scott-avatar.png"/>
+								</div>
+								<div class="info">
+									<div class="info-content"><a href="">scott@yahoo.com</a></div>
+									<div class="info-content">555.555.5555</div>
+									<div class="info-content">
+										8539 Wilton Ave.
+										<br/>
+										Culver City, CA 90234
+									</div>
+									<div class="links">
+										<a href="#chats">Chats</a>
+										<a href="#emails">Emails</a>
+									</div>
+								</div>
+							</div>
+					</td>
+				</tr>
+				<tr  class="off even">
+					<td class="identification">
+						
+							<div class="name">Christine</div>
+					</td>
+					<td class="information">
+							<div class="email">christine@yahoo.com</div>
+							<div class="phone hidden">555.555.5555</div>
+							<div class="description toggle hidden">
+								<div class="ident">
+									Christine
+									<br/>
+									<img class="avatar" src="img/christine-avatar.png"/>
+								</div>
+								<div class="info">
+									<div class="info-content"><a href="">christine@yahoo.com</a></div>
+									<div class="info-content">555.555.5555</div>
+									<div class="info-content">
+										8539 Wilton Ave.
+										<br/>
+										Culver City, CA 90234
+									</div>
+									<div class="links">
+										<a href="#chats">Chats</a>
+										<a href="#emails">Emails</a>
+									</div>
+								</div>
+							</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="show-content">
+			<label for="select-content">Show</label>
+			<select id="select-content">
+				<option value="email">Email Address</option>
+				<option value="phone">Phone Number</option>
+			</select>
+		</div>
+	</div>
+	<div class="test"></div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/jquery-ui.min.js"></script> 
+		<script><!--
+			$(document).ready(function() {
+				$('.contacts tr').click(function(){
+					$(this).children().children('.toggle').toggleClass('hidden');
+					});
+					
+				$(".contacts select").change(function () {
+					   var selectContent = $(this).val();
+					   $('.contacts .email').toggleClass('hidden');
+					   $('.contacts .phone').toggleClass('hidden');
+					});					
+			
+			});
+		--></script>
+		
+  <script>
+    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    Modernizr.load({
+      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+    });
+  </script>
+
+
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+  
+</body>
+</html>	

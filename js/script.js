@@ -35,6 +35,17 @@ function css3Slider(slideName, newSlideContainerWidth, currentSlideLocation){
 	});
 }
 $(document).ready(function() {
+
+		$( "#dialog" ).dialog({ buttons: [
+    {
+        text: "Ok",
+        click: function() { close_project(); }
+    },
+    {
+        text: "Cancel",
+        click: function() { $(this).dialog("close"); }
+    }
+]});
 	//prefix of the scroller
 	var slideName = "#slide1";
 	
@@ -61,6 +72,7 @@ $(document).ready(function() {
 	},function(){
 		$(this).children(".slide_image_description").css({"bottom" : -100, "opacity" : 0});
 	});
+	
 	
 });
 
